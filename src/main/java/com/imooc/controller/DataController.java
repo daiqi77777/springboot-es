@@ -46,7 +46,7 @@ public class DataController {
     public Object competitorInfoSearch(Integer productAuditId,String keyword,Integer similarity,Integer page,Integer size) {
         Map<String, Object> map = new HashMap<>();
         Pageable pageable = PageRequest.of(page, size);
-        // 统计耗时 test
+        // 统计耗时
         StopWatch watch = new StopWatch();
         watch.start();
         MysqlCompetitorInfo asinTitle = mysqlCompetitorInfoRepository.findByProductAuditId(productAuditId);
