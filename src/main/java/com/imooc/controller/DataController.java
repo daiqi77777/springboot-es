@@ -61,7 +61,7 @@ public class DataController {
         BoolQueryBuilder builder = QueryBuilders.boolQuery();
 
 
-        //should查询对象
+        //should查询对象 test
         BoolQueryBuilder wordSegmentShouldBuilder = QueryBuilders.boolQuery();
         for (String s : word_segment) {
             wordSegmentShouldBuilder.should(QueryBuilders.matchPhraseQuery("competitor_title_segment", s));
