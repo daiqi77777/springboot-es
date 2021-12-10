@@ -1,4 +1,4 @@
-package com.imooc.entity.mysql;
+package com.yswg.entity.mysql;
 
 import lombok.Data;
 import javax.persistence.*;

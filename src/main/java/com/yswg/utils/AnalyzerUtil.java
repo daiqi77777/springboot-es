@@ -1,18 +1,17 @@
-package com.imooc.utils;
+package com.yswg.utils;
 
 import org.apache.lucene.analysis.Analyzer;
 import org.apache.lucene.analysis.TokenStream;
 import org.apache.lucene.analysis.standard.StandardAnalyzer;
 import org.apache.lucene.analysis.tokenattributes.CharTermAttribute;
-import org.apache.tomcat.util.buf.StringUtils;
 
 import java.io.IOException;
-import java.io.StringReader;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+import java.util.stream.Collectors;
 
 public class AnalyzerUtil {
 
@@ -30,6 +29,8 @@ public class AnalyzerUtil {
             "size", "pack", "of", "by", "pairs",
             "compatible", "under", "in", "cm", "pcs",
             "pc",
+            //颜色单词
+            "white", "beige", "brown", "black", "red", "blue", "green", "purple", "yellow", "pink", "pink"
     };
 
     /*public static List<String> getAnalyzera(String s) throws IOException {
@@ -66,20 +67,22 @@ public class AnalyzerUtil {
         ts.reset();
         CharTermAttribute term = ts.getAttribute(CharTermAttribute.class);
         while (ts.incrementToken()) {
-            String content = term.toString();
+
             Pattern p = Pattern.compile(".*\\d+.*");
-            Matcher m = p.matcher(content);
+            Matcher m = p.matcher(term.toString());
             if (m.matches()) {
                 continue;
             }
+            String content = Inflector.getInstance().singularize(term.toString());
             if (!str_arr.contains(content)) {
-                str_arr.add(term.toString());
+                str_arr.add(content);
             }
         }
         str_arr.removeIf(s -> Arrays.asList(WeedOutChar).contains(s));
+        List<String> arr=str_arr.stream().filter(string -> !string.isEmpty()).collect(Collectors.toList());
         ts.end();
         ts.close();
-        return str_arr;
+        return arr;
     }
 
     public static List<String> getAnalyzer(String s) throws IOException {

@@ -1,4 +1,4 @@
-package com.imooc.entity.es;
+package com.yswg.entity.es;
 
 import lombok.Data;
 import org.springframework.data.annotation.Id;

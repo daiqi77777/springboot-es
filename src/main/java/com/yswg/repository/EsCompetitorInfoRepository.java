@@ -1,6 +1,6 @@
-package com.imooc.repository;
+package com.yswg.repository;
 
-import com.imooc.entity.es.EsCompetitorInfo;
+import com.yswg.entity.es.EsCompetitorInfo;
 import org.springframework.data.elasticsearch.repository.ElasticsearchRepository;
 
 

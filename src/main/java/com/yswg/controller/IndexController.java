@@ -1,6 +1,6 @@
-package com.imooc.controller;
+package com.yswg.controller;
 
-import com.imooc.repository.MysqlCompetitorInfoRepository;
+import com.yswg.repository.MysqlCompetitorInfoRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;

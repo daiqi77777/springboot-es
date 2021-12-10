@@ -1,9 +1,8 @@
-package com.imooc.controller;
+package com.yswg.controller;
 
-import com.imooc.entity.mysql.MysqlCompetitorInfo;
-import com.imooc.repository.EsCompetitorInfoRepository;
-import com.imooc.repository.MysqlCompetitorInfoRepository;
-import lombok.Data;
+import com.yswg.entity.mysql.MysqlCompetitorInfo;
+import com.yswg.repository.EsCompetitorInfoRepository;
+import com.yswg.repository.MysqlCompetitorInfoRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.elasticsearch.index.query.*;
 import org.elasticsearch.search.sort.SortBuilders;
@@ -60,8 +59,7 @@ public class DataController {
         //主查询对象
         BoolQueryBuilder builder = QueryBuilders.boolQuery();
 
-
-        //should查询对象 test
+        //should查询对象
         BoolQueryBuilder wordSegmentShouldBuilder = QueryBuilders.boolQuery();
         for (String s : word_segment) {
             wordSegmentShouldBuilder.should(QueryBuilders.matchPhraseQuery("competitor_title_segment", s));
@@ -69,9 +67,9 @@ public class DataController {
         // 3<90%
         //表示如果可选子句的数量等于（或小于）设置的值，则它们都是必需的，但如果它大于设置的值，则适用规范。
         // 在这个例子中：如果有1到3个子句，则它们都是必需的，但是对于4个或更多子句，只需要90％的匹配度
-       int  a = word_segment.length * similarity/100 ;
-        wordSegmentShouldBuilder.minimumShouldMatch(a+"<"+similarity.toString() + "%");
-
+        //int  a = word_segment.length * similarity/100 ;
+        //wordSegmentShouldBuilder.minimumShouldMatch(a+"<"+similarity.toString() + "%");
+        wordSegmentShouldBuilder.minimumShouldMatch(similarity.toString() + "%");
         //将should查询对象设置到 must 方法中
         builder.must(wordSegmentShouldBuilder);
 

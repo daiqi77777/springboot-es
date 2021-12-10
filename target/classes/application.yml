@@ -6,7 +6,7 @@ spring:
     driver-class-name: com.mysql.cj.jdbc.Driver
     url: jdbc:mysql://119.23.50.36:3306/trademark?useUnicode=true&characterEncoding=utf-8
     username: root
-    password: Yswg123!!!
+    password: Yswg@erp300
     # hikari 数据源专用配置
     hikari:
       maximum-pool-size: 20
@@ -17,22 +17,22 @@ spring:
     hibernate:
       ddl-auto: update
     #打印sql
-    show-sql: false
+    show-sql: true
     # 数据库方言
     database-platform: org.hibernate.dialect.MySQLDialect
 
   # es 配置
   elasticsearch:
     rest:
-      uris: 120.79.147.190:9200
-      username: elastic
-      password: selection2021.+
+      uris: 8.129.121.226:9202  #8.129.121.226:9202  120.77.232.73:9202
+      username: es_user
+      password: elasticsearch2021.+
     data:
       elasticsearch:
         repositories:
           enabled: true
-        cluster-nodes: 120.79.147.190:9300
-        cluster-name: my-application
+        cluster-nodes: 8.129.121.226:9300 #8.129.121.226:9300  120.77.232.73:9300
+        cluster-name: my-elastic
   # mvc 静态资源映射
   mvc:
     static-path-pattern: /**

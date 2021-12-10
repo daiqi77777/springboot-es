@@ -1,8 +1,8 @@
-package com.imooc.common;
+package com.yswg.common;
 
-import com.imooc.entity.mysql.MysqlCompetitorInfo;
-import com.imooc.repository.MysqlCompetitorInfoRepository;
-import com.imooc.utils.AnalyzerUtil;
+import com.yswg.entity.mysql.MysqlCompetitorInfo;
+import com.yswg.repository.MysqlCompetitorInfoRepository;
+import com.yswg.utils.AnalyzerUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.tomcat.util.buf.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,8 +11,9 @@ import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.scheduling.annotation.Scheduled;
 
 import java.io.IOException;
+import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
-import java.util.Arrays;
+import java.util.Date;
 import java.util.List;
 
 @Configuration      //1.主要用于标记配置类，兼备Component的效果。
@@ -32,17 +33,19 @@ public class StaticScheduleTask {
     MysqlCompetitorInfoRepository mysqlCompetitorInfoRepository;
 
     //3.添加定时任务
-    // @Scheduled(cron = "0 */1 * * * ?")
-     @Scheduled(cron = "0 0 17 * * ?")
+    @Scheduled(cron = "0 */1 * * * ?")
+    //@Scheduled(cron = "0 */50 * * * ?")
     private void configureTasks() throws IOException {
-        log.info("执行静态定时任务开始时间: " + LocalDateTime.now());
+//        log.info("执行静态定时任务开始时间: " + LocalDateTime.now());
+        Date date = new Date();
         List<MysqlCompetitorInfo> MysqlCompetitorInfos = mysqlCompetitorInfoRepository.queryEmptyCompetitorTitleSegment();
         for (MysqlCompetitorInfo t : MysqlCompetitorInfos) {
             List<String> str_arr = AnalyzerUtil.getAnalyzer(t.getCompetitorTitle());
             if (str_arr.size() == 0) continue;
             t.setCompetitorTitleSegment(StringUtils.join(str_arr, ','));
+            t.setUpdatedAt(date);
             mysqlCompetitorInfoRepository.save(t);
         }
-        log.info("执行静态定时任务结束时间: " + LocalDateTime.now());
+//        log.info("执行静态定时任务结束时间: " + LocalDateTime.now());
     }
 }

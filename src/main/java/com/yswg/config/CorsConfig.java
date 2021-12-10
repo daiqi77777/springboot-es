@@ -1,4 +1,4 @@
-package com.imooc.config;
+package com.yswg.config;
 
 
 import org.springframework.context.annotation.Bean;

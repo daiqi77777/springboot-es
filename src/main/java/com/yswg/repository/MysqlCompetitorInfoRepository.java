@@ -1,6 +1,6 @@
-package com.imooc.repository;
+package com.yswg.repository;
 
-import com.imooc.entity.mysql.MysqlCompetitorInfo;
+import com.yswg.entity.mysql.MysqlCompetitorInfo;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import java.util.List;
@@ -11,11 +11,14 @@ import java.util.List;
  */
 public interface MysqlCompetitorInfoRepository extends JpaRepository<MysqlCompetitorInfo, Integer> {
 
-    @Query("select e from MysqlCompetitorInfo e where e.id<100 order by e.createdAt desc ")
+    @Query("select e from MysqlCompetitorInfo e where e.id<351995 order by e.createdAt desc ")
     List<MysqlCompetitorInfo> queryAll();
 
-    @Query("select e from MysqlCompetitorInfo e  order by id desc ")
+    @Query("select e from MysqlCompetitorInfo e where e.competitorTitleSegment=''  order by id desc ")
     List<MysqlCompetitorInfo> queryEmptyCompetitorTitleSegment();
+
+    @Query("select e from MysqlCompetitorInfo e order by id desc ")
+    List<MysqlCompetitorInfo> queryCompetitorTitleSegment();
 
     MysqlCompetitorInfo findByProductAuditId(int keyword);
 
