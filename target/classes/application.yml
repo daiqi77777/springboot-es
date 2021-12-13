@@ -4,7 +4,7 @@ spring:
   #数据库配置
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://119.23.50.36:3306/trademark?useUnicode=true&characterEncoding=utf-8
+    url: jdbc:mysql://119.23.50.36:3306/trademark?useUnicode=true&characterEncoding=utf-8&serverTimezone=Asia/Shanghai
     username: root
     password: Yswg@erp300
     # hikari 数据源专用配置
@@ -17,7 +17,7 @@ spring:
     hibernate:
       ddl-auto: update
     #打印sql
-    show-sql: true
+    show-sql: false
     # 数据库方言
     database-platform: org.hibernate.dialect.MySQLDialect
 

@@ -28,51 +28,25 @@ public class AnalyzerUtil {
             "and", "from", "into", "to", "diy",
             "size", "pack", "of", "by", "pairs",
             "compatible", "under", "in", "cm", "pcs",
-            "pc",
+            "pc","st","day","xs","xl","xxl",
             //颜色单词
             "white", "beige", "brown", "black", "red", "blue", "green", "purple", "yellow", "pink", "pink"
     };
-
-    /*public static List<String> getAnalyzera(String s) throws IOException {
-        List<String> str_arr = new ArrayList<>();
-        for (String chars : AnalyzerUtil.REPLACE_CHARS) {
-            s = s.replace(chars, " ");
-        }
-
-        //创建分词对象
-        Analyzer anal = new IKAnalyzer(true);
-        StringReader reader = new StringReader(s);
-        //分词
-        TokenStream ts = anal.tokenStream("", reader);
-        CharTermAttribute term = ts.getAttribute(CharTermAttribute.class);
-        //遍历分词数据
-        while (ts.incrementToken()) {
-            String content = term.toString();
-            Pattern p = Pattern.compile(".*\\d+.*");
-            Matcher m = p.matcher(content);
-            if (m.matches()) {
-                continue;
-            }
-            if (!str_arr.contains(content)) {
-                str_arr.add(term.toString());
-            }
-
-        }
-        reader.close();
-        return str_arr;
-    }*/
 
     private static List<String> doToken(TokenStream ts) throws IOException {
         List<String> str_arr = new ArrayList<>();
         ts.reset();
         CharTermAttribute term = ts.getAttribute(CharTermAttribute.class);
         while (ts.incrementToken()) {
-
+            if (term.toString().length()==1){
+                continue;
+            }
             Pattern p = Pattern.compile(".*\\d+.*");
             Matcher m = p.matcher(term.toString());
             if (m.matches()) {
                 continue;
             }
+
             String content = Inflector.getInstance().singularize(term.toString());
             if (!str_arr.contains(content)) {
                 str_arr.add(content);

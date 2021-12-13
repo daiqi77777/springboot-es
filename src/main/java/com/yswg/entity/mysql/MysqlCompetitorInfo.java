@@ -18,6 +18,9 @@ public class MysqlCompetitorInfo {
     private String competitorTitle;
     private String competitorTitleSegment;
     private Date createdAt;
+    @Column(name="updated_at")
+    @org.hibernate.annotations.UpdateTimestamp
+    @Temporal(TemporalType.TIMESTAMP)
     private Date updatedAt;
 
 

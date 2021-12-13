@@ -36,16 +36,14 @@ public class StaticScheduleTask {
     @Scheduled(cron = "0 */1 * * * ?")
     //@Scheduled(cron = "0 */50 * * * ?")
     private void configureTasks() throws IOException {
-//        log.info("执行静态定时任务开始时间: " + LocalDateTime.now());
-        Date date = new Date();
+        log.info("执行静态定时任务开始时间: " + LocalDateTime.now());
         List<MysqlCompetitorInfo> MysqlCompetitorInfos = mysqlCompetitorInfoRepository.queryEmptyCompetitorTitleSegment();
         for (MysqlCompetitorInfo t : MysqlCompetitorInfos) {
             List<String> str_arr = AnalyzerUtil.getAnalyzer(t.getCompetitorTitle());
             if (str_arr.size() == 0) continue;
             t.setCompetitorTitleSegment(StringUtils.join(str_arr, ','));
-            t.setUpdatedAt(date);
             mysqlCompetitorInfoRepository.save(t);
         }
-//        log.info("执行静态定时任务结束时间: " + LocalDateTime.now());
+        log.info("执行静态定时任务结束时间: " + LocalDateTime.now());
     }
 }
